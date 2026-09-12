@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Biomedical engineering portfolio of Anwitha Srirama, featuring prosthetics, rehabilitation devices, electronics, CAD, and biomechanical analysis.">
+  <title>Anwitha Srirama | Biomedical Engineering Portfolio</title>
+  <style>
+    :root {
+      --landing-background: #fffaf5;
+      --landing-foreground: #ffffff;
+      --landing-primary: #f3b7c7;
+      --landing-secondary: #cddafd;
+      --landing-accent: #cdeac0;
+      --landing-warning: #ffe5a5;
+      --landing-hover: #d47a95;
+      --landing-link: #557ac7;
+      --landing-text: #25252a;
+      --landing-text-muted: #61616b;
+      --landing-gradient-primary: linear-gradient(90deg, var(--landing-primary), var(--landing-secondary));
+      --landing-font-family-primary: Arial, sans-serif;
+      --landing-font-family-secondary: Arial, sans-serif;
+      --landing-font-family-special: Arial, sans-serif;
+      --landing-radius-sm: 8px;
+      --landing-radius-md: 16px;
+      --landing-radius-lg: 24px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--landing-background); color: var(--landing-text); font-family: var(--landing-font-family-primary); }
+
+    .hero-section { position: relative; background: var(--landing-background); width: 100%; min-height: 85vh; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 160px 24px 120px; }
+    .hero-header-band { position: absolute; inset: 0 0 auto; width: 100%; height: 400px; background: var(--landing-primary); border-radius: 0 0 64px 64px; }
+    .hero-container { position: relative; z-index: 1; display: flex; flex-direction: column; width: 100%; max-width: 1280px; gap: 80px; }
+    .hero-content { display: flex; flex-direction: column; width: 100%; max-width: 640px; gap: 32px; }
+    .hero-heading { color: var(--landing-text); font-size: 48px; font-weight: 700; line-height: 1.1; margin: 0; letter-spacing: -1px; opacity: 0; animation: heroFadeUp .8s cubic-bezier(.4,0,.2,1) .1s forwards; }
+    .hero-description { color: var(--landing-text-muted); font-size: 20px; line-height: 1.8; margin: 0; max-width: 560px; opacity: 0; animation: heroFadeUp .8s cubic-bezier(.4,0,.2,1) .2s forwards; }
+    .hero-ctas { display: flex; flex-direction: column; gap: 20px; margin-top: 16px; opacity: 0; animation: heroFadeUp .8s cubic-bezier(.4,0,.2,1) .3s forwards; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; padding: 18px 40px; border-radius: 999px; font-size: 18px; font-weight: 600; text-decoration: none; transition: all .3s cubic-bezier(.4,0,.2,1); text-align: center; }
+    .btn-primary { background: var(--landing-primary); color: var(--landing-text); border: 2px solid var(--landing-primary); }
+    .btn-primary:hover { background: var(--landing-hover); border-color: var(--landing-hover); transform: translateY(-4px); }
+    .btn-secondary { background: transparent; color: var(--landing-text); border: 2px solid var(--landing-text); }
+    .btn-secondary:hover { background: var(--landing-text); color: var(--landing-background); transform: translateY(-4px); }
+    .hero-image-wrapper { width: 100%; max-width: 520px; margin: auto; opacity: 0; animation: heroFadeUp .8s cubic-bezier(.4,0,.2,1) .4s forwards; }
+    .hero-image-container { position: relative; width: 100%; border-radius: 40px; z-index: 1; }
+    .hero-image-container::after { content: ''; position: absolute; top: 32px; left: 32px; width: 100%; height: 100%; background: var(--landing-text); opacity: .08; border-radius: 40px; z-index: -1; transition: all .3s ease; }
+    .hero-image { width: 100%; height: auto; border-radius: 40px; display: block; transition: transform .3s ease; }
+    .hero-image:hover { transform: translateY(-16px); }
+    .hero-image-container:hover::after { top: 48px; left: 24px; opacity: .05; }
+
+    .edu-section { background: var(--landing-foreground); padding: 100px 24px; display: flex; justify-content: center; width: 100%; overflow: hidden; }
+    .edu-container { max-width: 900px; width: 100%; display: flex; flex-direction: column; align-items: center; text-align: center; }
+    .edu-header { display: flex; align-items: center; justify-content: center; position: relative; margin-bottom: 32px; width: 100%; max-width: 400px; }
+    .edu-heading { font-size: 56px; font-weight: 800; margin: 0; line-height: 1.1; letter-spacing: -1px; position: relative; z-index: 2; }
+    .edu-doodle { position: absolute; z-index: 1; }
+    .edu-doodle-left { left: -40px; top: -30px; width: 90px; height: 90px; animation: float 6s ease-in-out infinite; }
+    .edu-doodle-right { right: -60px; bottom: -20px; width: 100px; height: 100px; }
+    .edu-description { font-size: 20px; line-height: 1.7; color: var(--landing-text-muted); margin: 0 0 56px; max-width: 700px; }
+    .edu-coursework-card { display: flex; flex-direction: column; align-items: center; width: 100%; background: var(--landing-background); padding: 48px; border: 3px solid var(--landing-text); border-radius: 32px; box-shadow: 12px 12px 0 var(--landing-primary); }
+    .edu-coursework-title { font-size: 36px; margin: 0 0 12px; }
+    .edu-coursework-note { margin: 0 0 28px; color: var(--landing-text-muted); font-size: 15px; }
+    .edu-coursework-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; list-style: none; padding: 0; margin: 0; width: 100%; }
+    .edu-pill { background: var(--landing-secondary); font-size: 16px; font-weight: 600; padding: 14px 28px; border-radius: 9999px; border: 2px solid var(--landing-text); box-shadow: 4px 4px 0 var(--landing-text); transition: all .3s cubic-bezier(.4,0,.2,1); opacity: 0; transform: translateY(20px); animation: eduFadeUp .6s ease forwards; animation-delay: calc(var(--i) * 100ms); }
+    .edu-pill:hover { background: var(--landing-hover); transform: translateY(-6px) rotate(-2deg); box-shadow: 6px 10px 0 var(--landing-text); }
+    .edu-pill:nth-child(even):hover { transform: translateY(-6px) rotate(2deg); }
+
+    .toolbox-section { position: relative; background: var(--landing-background); padding: 120px 24px; display: flex; justify-content: center; width: 100%; overflow: hidden; }
+    .toolbox-section::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(var(--landing-text) 1px, transparent 1px), linear-gradient(90deg, var(--landing-text) 1px, transparent 1px); background-size: 64px 64px; opacity: .03; pointer-events: none; }
+    .toolbox-container { position: relative; max-width: 1200px; width: 100%; display: flex; flex-direction: column; gap: 80px; z-index: 1; }
+    .toolbox-header, .experience-header { display: flex; flex-direction: column; gap: 24px; align-items: center; text-align: center; max-width: 800px; margin: auto; }
+    .toolbox-title, .experience-title { font-size: 56px; font-weight: 800; line-height: 1.15; margin: 0; letter-spacing: -1px; }
+    .toolbox-description, .experience-description { color: var(--landing-text-muted); font-size: 20px; line-height: 1.6; max-width: 720px; margin: 0; }
+    .toolbox-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 36px; width: 100%; }
+    .sticky-note { position: relative; width: 100%; display: flex; flex-direction: column; opacity: 0; transform: translateY(40px); transition: opacity .6s ease, transform .6s cubic-bezier(.34,1.56,.64,1); }
+    .sticky-note:nth-child(1) { --target-rot: -3deg; transition-delay: 0ms; }
+    .sticky-note:nth-child(2) { --target-rot: 2deg; transition-delay: 100ms; }
+    .sticky-note:nth-child(3) { --target-rot: -1deg; transition-delay: 200ms; }
+    .sticky-note:nth-child(4) { --target-rot: 3deg; transition-delay: 300ms; }
+    .sticky-note.is-visible { opacity: 1; transform: translateY(0) rotate(var(--target-rot)); }
+    .sticky-note.is-visible:hover { transform: scale(1.05) rotate(0); transition-delay: 0ms; z-index: 10; }
+    .note-shadow { position: absolute; top: 12px; left: 12px; right: -4px; bottom: -12px; background: var(--landing-text); opacity: .08; filter: blur(12px); }
+    .note-content { position: relative; z-index: 1; padding: 42px 28px; display: flex; flex-direction: column; gap: 24px; height: 100%; border: 1px solid var(--landing-background); }
+    .note-accent .note-content { background: var(--landing-accent); }
+    .note-secondary .note-content { background: var(--landing-secondary); }
+    .note-warning .note-content { background: var(--landing-warning); }
+    .note-primary .note-content { background: var(--landing-primary); }
+    .note-title { font-size: 30px; margin: 0; line-height: 1.15; }
+    .note-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 16px; }
+    .note-item { font-size: 16px; line-height: 24px; font-weight: 500; display: flex; align-items: center; gap: 12px; }
+    .note-item::before { content: ''; width: 6px; height: 6px; background: var(--landing-text); opacity: .4; flex-shrink: 0; }
+
+    .experience-section { background: var(--landing-foreground); padding: 120px 24px; display: flex; justify-content: center; width: 100%; overflow: hidden; }
+    .experience-container { max-width: 1200px; width: 100%; display: flex; flex-direction: column; gap: 64px; }
+    .experience-title { font-size: 48px; }
+    .title-accent { width: 80px; height: 6px; background-image: var(--landing-gradient-primary); border-radius: var(--landing-radius-sm); }
+    .experience-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; width: 100%; }
+    .experience-card { position: relative; display: flex; flex-direction: column; width: 100%; opacity: 0; transform: translateY(40px); transition: opacity .6s ease, transform .6s ease; }
+    .experience-card.is-visible { opacity: 1; transform: translateY(0); }
+    .card-shadow { position: absolute; top: 12px; left: 12px; right: -12px; bottom: -12px; background: var(--landing-text); opacity: .04; filter: blur(16px); border-radius: var(--landing-radius-lg); transition: all .3s ease; }
+    .card-content { position: relative; z-index: 1; background: var(--landing-foreground); border-radius: var(--landing-radius-lg); padding: 32px; display: flex; flex-direction: column; gap: 24px; height: 100%; border: 1px solid var(--landing-primary); transition: all .3s ease; }
+    .experience-card:hover .card-content { transform: translateY(-8px); border-color: var(--landing-hover); }
+    .experience-card:hover .card-shadow { opacity: .08; filter: blur(20px); transform: translateY(4px); }
+    .card-image-wrapper { width: 100%; height: 220px; border-radius: var(--landing-radius-md); overflow: hidden; background: var(--landing-background); }
+    .card-image { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+    .experience-card:hover .card-image { transform: scale(1.05); }
+    .card-text-content { display: flex; flex-direction: column; gap: 16px; flex-grow: 1; }
+    .card-header { display: flex; flex-direction: column; gap: 8px; }
+    .card-title { font-size: 24px; font-weight: 600; line-height: 32px; margin: 0; }
+    .card-role { color: var(--landing-hover); font-size: 14px; font-weight: 600; line-height: 20px; text-transform: uppercase; letter-spacing: 1px; }
+    .card-details { color: var(--landing-text-muted); font-size: 16px; line-height: 26px; margin: 0; flex-grow: 1; }
+    .card-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+    .tag { background: var(--landing-primary); font-size: 12px; font-weight: 500; line-height: 16px; padding: 6px 12px; border-radius: var(--landing-radius-sm); }
+
+    .site-footer { background: var(--landing-text); color: var(--landing-background); padding: 32px 24px; text-align: center; }
+    .site-footer a { color: var(--landing-secondary); }
+
+    @keyframes heroFadeUp { from { opacity: 0; transform: translateY(32px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes eduFadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes float { 0%,100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-10px) rotate(5deg); } }
+
+    @media (min-width: 576px) { .hero-ctas { flex-direction: row; } }
+    @media (min-width: 768px) { .hero-heading { font-size: 72px; } .hero-description { font-size: 22px; } .card-content { padding: 40px; } }
+    @media (min-width: 992px) { .hero-container { flex-direction: row; align-items: center; justify-content: space-between; } }
+    @media (max-width: 768px) {
+      .hero-section { padding: 120px 20px 80px; }
+      .hero-header-band { height: 330px; border-radius: 0 0 40px 40px; }
+      .edu-section, .toolbox-section, .experience-section { padding: 72px 16px; }
+      .edu-heading, .toolbox-title, .experience-title { font-size: 40px; }
+      .edu-description, .toolbox-description, .experience-description { font-size: 18px; }
+      .edu-coursework-card { padding: 32px 20px; box-shadow: 8px 8px 0 var(--landing-primary); }
+      .edu-coursework-title { font-size: 28px; }
+      .edu-pill { font-size: 14px; padding: 12px 20px; }
+      .toolbox-container { gap: 56px; }
+      .toolbox-grid, .experience-grid { grid-template-columns: 1fr; }
+      .note-content { padding: 40px 24px; }
+    }
+    @media (max-width: 480px) { .edu-doodle { display: none; } }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .hero-heading, .hero-description, .hero-ctas, .hero-image-wrapper, .edu-pill, .sticky-note, .experience-card { animation: none; transition: none; opacity: 1; transform: none; }
+      .hero-image, .btn, .card-content, .card-image { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero-section" id="home">
+      <div class="hero-header-band"></div>
+      <div class="hero-container">
+        <div class="hero-content">
+          <h1 class="hero-heading">Hi, I'm Anwitha Srirama</h1>
+          <p class="hero-description">Biomedical Engineering student at the University of Florida focused on biomechanics, medical-device design, and electromechanical systems.</p>
+          <div class="hero-ctas">
+            <a href="https://s3.amazonaws.com/media-prod.butternut.ai/website_images/resume-image-upload/1789242768.6282876_fall_2026_resume.pdf" class="btn btn-primary" target="_blank" rel="noopener noreferrer">View Resume</a>
+            <a href="mailto:anwithasrirama@ufl.edu" class="btn btn-secondary">Let's Connect</a>
+          </div>
+        </div>
+        <div class="hero-image-wrapper">
+          <div class="hero-image-container">
+            <img src="https://s3.amazonaws.com/media-prod.butternut.ai/website_images/portfolio/4d20cb0f-d6c6-45cf-b1f3-60fb0e235a62.webp" alt="Anwitha Srirama" class="hero-image">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="edu-section" id="education">
+      <div class="edu-container">
+        <div class="edu-header">
+          <svg class="edu-doodle edu-doodle-left" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 10 C50 35 65 50 90 50 C65 50 50 65 50 90 C50 65 35 50 10 50 C35 50 50 35 50 10 Z" fill="var(--landing-accent)"/><circle cx="20" cy="25" r="5" fill="var(--landing-warning)"/><circle cx="85" cy="75" r="7" fill="var(--landing-link)"/></svg>
+          <h2 class="edu-heading">Education</h2>
+          <svg class="edu-doodle edu-doodle-right" viewBox="0 0 100 100" aria-hidden="true"><path d="M15 85 Q45 30 85 45" fill="none" stroke="var(--landing-text)" stroke-width="5" stroke-linecap="round"/><path d="M65 30 L88 47 L65 65" fill="none" stroke="var(--landing-text)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <p class="edu-description">Pursuing a Bachelor of Science in Biomedical Engineering at the University of Florida. Expected graduation: May 2028.</p>
+        <div class="edu-coursework-card">
+          <h3 class="edu-coursework-title">Relevant Coursework</h3>
+          <p class="edu-coursework-note">Completed and in progress</p>
+          <ul class="edu-coursework-list">
+            <li class="edu-pill">Biomedical Instrumentation</li><li class="edu-pill">Biomedical Materials</li><li class="edu-pill">Biosignals and Systems</li><li class="edu-pill">Cellular Physiology</li><li class="edu-pill">Circuits</li><li class="edu-pill">Mechanics of Materials</li><li class="edu-pill">Digital Logic</li><li class="edu-pill">Engineering Design</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="toolbox-section" id="skills">
+      <div class="toolbox-container">
+        <div class="toolbox-header"><h2 class="toolbox-title">Technical Toolbox</h2><p class="toolbox-description">Tools and methods I use across medical-device design, prototyping, electronics, and biomechanical analysis.</p></div>
+        <div class="toolbox-grid">
+          <div class="sticky-note note-accent"><div class="note-shadow"></div><div class="note-content"><h3 class="note-title">CAD & Prototyping</h3><ul class="note-list"><li class="note-item">SolidWorks (CSWA)</li><li class="note-item">Fusion 360</li><li class="note-item">Onshape</li><li class="note-item">3D Printing</li><li class="note-item">GD&T Fundamentals</li></ul></div></div>
+          <div class="sticky-note note-secondary"><div class="note-shadow"></div><div class="note-content"><h3 class="note-title">Electronics</h3><ul class="note-list"><li class="note-item">KiCad</li><li class="note-item">Arduino</li><li class="note-item">PCB Design</li><li class="note-item">Signal Acquisition</li><li class="note-item">Oscilloscope Testing</li></ul></div></div>
+          <div class="sticky-note note-warning"><div class="note-shadow"></div><div class="note-content"><h3 class="note-title">Engineering Methods</h3><ul class="note-list"><li class="note-item">Design Verification</li><li class="note-item">Prototype Testing</li><li class="note-item">FEA Fundamentals</li><li class="note-item">DFM/DFA</li><li class="note-item">Technical Documentation</li></ul></div></div>
+          <div class="sticky-note note-primary"><div class="note-shadow"></div><div class="note-content"><h3 class="note-title">Analysis & Code</h3><ul class="note-list"><li class="note-item">C++</li><li class="note-item">MATLAB</li><li class="note-item">Python</li><li class="note-item">VHDL</li><li class="note-item">OpenSim & OpenCap</li></ul></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="experience-section" id="projects">
+      <div class="experience-container">
+        <div class="experience-header"><h2 class="experience-title">Projects & Experience</h2><div class="title-accent"></div><p class="experience-description">Applying biomechanics and electromechanical design to rehabilitation and prosthetic challenges.</p></div>
+        <div class="experience-grid">
+          <article class="experience-card"><div class="card-shadow"></div><div class="card-content"><div class="card-image-wrapper"><img src="https://images.unsplash.com/photo-1518601794912-1af91724e528?auto=format&fit=crop&w=1080&q=80" alt="Representative image for prosthetic design work" class="card-image" loading="lazy"></div><div class="card-text-content"><div class="card-header"><h3 class="card-title">GRiP Prosthetics</h3><span class="card-role">Research Project Lead & Prosthetics Designer</span></div><p class="card-details">Leading the development of a testing system to compare passive ventilation and moisture-management concepts for prosthetic sockets. Previously designed and iterated TPU musical attachments for pediatric prosthetic hands.</p><div class="card-tags"><span class="tag">Research Leadership</span><span class="tag">TPU Prototyping</span><span class="tag">Prosthetics</span><span class="tag">Test Development</span></div></div></div></article>
+          <article class="experience-card"><div class="card-shadow"></div><div class="card-content"><div class="card-image-wrapper"><img src="https://images.unsplash.com/photo-1676263813382-bb5ba4b63f91?auto=format&fit=crop&w=1080&q=80" alt="Representative image for exoskeleton engineering" class="card-image" loading="lazy"></div><div class="card-text-content"><div class="card-header"><h3 class="card-title">Biodesign Exoskeleton</h3><span class="card-role">Electrical Subsystem Design Member</span></div><p class="card-details">Supporting IMU integration, sensor connections, and signal acquisition for a lower-limb exoskeleton. Contributing to gait analysis with OpenSim and OpenCap and electromechanical design revisions in Fusion 360.</p><div class="card-tags"><span class="tag">IMU Sensors</span><span class="tag">Signal Acquisition</span><span class="tag">OpenSim</span><span class="tag">Fusion 360</span></div></div></div></article>
+          <article class="experience-card"><div class="card-shadow"></div><div class="card-content"><div class="card-image-wrapper"><img src="https://images.unsplash.com/photo-1513224502586-d1e602410265?auto=format&fit=crop&w=1080&q=80" alt="Representative image for the GatorGait rehabilitation device" class="card-image" loading="lazy"></div><div class="card-text-content"><div class="card-header"><h3 class="card-title">GatorGait Smart Crutch</h3><span class="card-role">Embedded Rehabilitation Device</span></div><p class="card-details">Built a crutch-mounted load-monitoring prototype that measures applied weight and provides adjustable LED and buzzer feedback using an Arduino, load cells, and an HX711 interface.</p><div class="card-tags"><span class="tag">Arduino</span><span class="tag">C++</span><span class="tag">HX711</span><span class="tag">Load Cells</span></div></div></div></article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><p>© 2026 Anwitha Srirama · <a href="mailto:anwithasrirama@ufl.edu">anwithasrirama@ufl.edu</a></p></footer>
+
+  <script>
+    document.querySelectorAll('.edu-pill').forEach((pill, index) => pill.style.setProperty('--i', index));
+    if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) { entry.target.classList.add('is-visible'); obs.unobserve(entry.target); }
+        });
+      }, { threshold: 0.15 });
+      document.querySelectorAll('.sticky-note, .experience-card').forEach((item, index) => {
+        if (item.classList.contains('experience-card')) item.style.transitionDelay = `${index * 0.15}s`;
+        observer.observe(item);
+      });
+    } else {
+      document.querySelectorAll('.sticky-note, .experience-card').forEach(item => item.classList.add('is-visible'));
+    }
+  </script>
+</body>
+</html>
